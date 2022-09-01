@@ -3,9 +3,14 @@ import 'package:bytebank_app/models/contact.dart';
 import 'package:bytebank_app/screens/contact_form.dart';
 import 'package:flutter/material.dart';
 
-class ContactsList extends StatelessWidget {
+class ContactsList extends StatefulWidget {
   const ContactsList({Key? key}) : super(key: key);
 
+  @override
+  State<ContactsList> createState() => _ContactsListState();
+}
+
+class _ContactsListState extends State<ContactsList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,11 +56,15 @@ class ContactsList extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => const ContactForm(),
-            ),
-          );
+          Navigator.of(context)
+              .push(
+                MaterialPageRoute(
+                  builder: (context) => const ContactForm(),
+                ),
+              )
+              .then((value) => setState(() {
+                    findAll();
+                  }));
         },
         child: const Icon(Icons.add),
       ),
